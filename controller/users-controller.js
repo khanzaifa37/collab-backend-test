@@ -8,12 +8,15 @@ const jwt = require('jsonwebtoken');
 const FACEBOOK_APP_ID = '375320672994034';
 const FACEBOOK_APP_SECRET = 'd54dacc4403becd0b2e25a39b79ae9fe';
 
-
 const login = async (req, res, next) => {
     let token;
     let existingUser;
     const {email, access_token: accessTokenId} = req.body;
     console.log(email, accessTokenId);
+
+    
+    const api = fbSdk.
+    FacebookAdsApi.init(accessToken);
      
     try {
         console.log('is existing user?')
@@ -61,4 +64,17 @@ const login = async (req, res, next) => {
     res.json({message: 'Logged in!'});
 }
 
+const fetchInstaDetails = async (req, res, next) => {
+ axios({
+      method: 'get',
+      url: 'https://graph.facebook.com/17841467573481911?fields=business_discovery.username(pumaindia){followers_count,media_count}&access_token=',
+    })
+  .then(function (response) {
+    console.log(response);
+    res.json({response: "Success"});
+  });
+
+}
+
 exports.login = login;
+exports.fetchInstaDetails = fetchInstaDetails;
